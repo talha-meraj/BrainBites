@@ -1,0 +1,231 @@
+/* Split-Screen Authentication Layout */
+.authLayout {
+    min-height: calc(100vh - 140px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--paper);
+}
+
+/* Left Editorial Aside */
+.authAside {
+    padding: clamp(50px, 8vw, 130px);
+    border-right: 1px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--surface);
+    position: relative;
+}
+
+.asideTitle {
+    font-size: clamp(2.8rem, 4.2vw, 4rem);
+    max-width: 600px;
+    margin: 22px 0;
+    line-height: 1.05;
+    letter-spacing: -0.05em;
+    font-family: var(--display);
+}
+
+.asideDesc {
+    max-width: 500px;
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* Tilted Brutalist Stamp Sketch */
+.asideSketch {
+    border: 2px solid var(--ink);
+    width: 210px;
+    padding: 25px;
+    margin-top: 50px;
+    font: 900 2rem var(--mono);
+    line-height: 0.9;
+    transform: rotate(-3deg);
+    box-shadow: var(--shadow);
+    background: var(--accent-soft);
+    color: var(--ink);
+}
+
+.asideSketch span {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 20px;
+    letter-spacing: 0.5em;
+}
+
+/* Right Form Card Container */
+.authCard {
+    width: min(480px, calc(100% - 40px));
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 50px 0;
+}
+
+.eyebrow {
+    display: block;
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: var(--mono);
+}
+
+.authCard h2 {
+    font-size: 1.8rem;
+    letter-spacing: -0.04em;
+    margin-bottom: 0;
+    font-family: var(--display);
+}
+
+/* Sign In / Register Tab Toggle */
+.authTabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--ink);
+    margin-block: 4px 12px;
+}
+
+.authTabs button {
+    border: 0;
+    min-height: 52px;
+    background: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-family: var(--display);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.authTabs button.activeTab {
+    color: var(--ink);
+    box-shadow: inset 0 -3px 0 var(--ink);
+}
+
+.formHint {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin: 0;
+}
+
+/* Inline Error Alert Banner */
+.alertError {
+    padding: 12px 16px;
+    background: var(--red-soft);
+    border: 1px solid var(--red);
+    color: var(--red);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.alertError b {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.alertError span {
+    font-size: 0.75rem;
+}
+
+/* Utility Row (Remember Me + Forgot Password) */
+.formBetween {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+}
+
+.rememberMe {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--ink);
+}
+
+.textLink {
+    border: 0;
+    background: none;
+    font-size: 0.78rem;
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--muted);
+}
+
+/* 1-Click Fast Evaluation Switcher */
+.demoLogins {
+    margin-top: 10px;
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.demoLogins>span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: var(--mono);
+}
+
+.demoButtonsRow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.demoButtonsRow button {
+    padding: 8px 10px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    font-family: var(--display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.demoButtonsRow button:hover {
+    background: var(--accent);
+}
+
+.authSwitch {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 10px;
+}
+
+.authSwitch button {
+    border: 0;
+    background: none;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .authLayout {
+        grid-template-columns: 1fr;
+    }
+
+    .authAside {
+        border-right: none;
+        border-bottom: 1px solid var(--ink);
+        padding: 40px 24px;
+    }
+}
