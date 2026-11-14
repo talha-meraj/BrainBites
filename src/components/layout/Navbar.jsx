@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X, LogOut } from 'lucide-react';
 import BrandMark from '../common/BrandMark';
 import styles from './Navbar.module.css';
@@ -22,16 +22,16 @@ const WORKSPACE_NAV_LINKS = {
         { id: 'help', label: 'Help' }
     ],
     Creator: [
-        { id: 'creator', label: 'Overview' },
-        { id: 'creator', label: 'My puzzles' },
-        { id: 'editor', label: 'Create puzzle' },
-        { id: 'dashboard', label: 'Feedback' }
+        { id: 'creator-overview', label: 'Overview' },
+        { id: 'creator-puzzles', label: 'My puzzles' },
+        { id: 'creator-editor', label: 'Create puzzle' },
+        { id: 'creator-feedback', label: 'Feedback' }
     ],
     Administrator: [
-        { id: 'admin', label: 'Overview' },
-        { id: 'users', label: 'Users' },
-        { id: 'admin', label: 'Puzzles' },
-        { id: 'admin', label: 'Score audit' }
+        { id: 'admin-overview', label: 'Overview' },
+        { id: 'admin-users', label: 'Users' },
+        { id: 'admin-puzzles', label: 'Puzzles' },
+        { id: 'admin-audit', label: 'Score audit' }
     ]
 };
 
@@ -62,6 +62,20 @@ export default function Navbar({
 }) {
     // Mobile drawer open state
     const [menuOpen, setMenuOpen] = useState(false);
+    const [homeSection, setHomeSection] = useState('home');
+    useEffect(() => {
+        if (currentScreen !== 'home') { setHomeSection('home'); return; }
+        const updateSection = () => {
+            const library = document.getElementById('puzzle-library');
+            if (!library) return;
+            const threshold = document.querySelector('header')?.getBoundingClientRect().height || 140;
+            setHomeSection(library.getBoundingClientRect().top <= threshold + 32 ? 'puzzles' : 'home');
+        };
+        updateSection();
+        window.addEventListener('scroll', updateSection, { passive: true });
+        window.addEventListener('resize', updateSection);
+        return () => { window.removeEventListener('scroll', updateSection); window.removeEventListener('resize', updateSection); };
+    }, [currentScreen]);
 
     // Retrieve active role links
     const workspaceLinks = WORKSPACE_NAV_LINKS[role] || WORKSPACE_NAV_LINKS.Guest;
@@ -70,14 +84,24 @@ export default function Navbar({
     const handleNavClick = (link) => {
         setMenuOpen(false);
 
-        if (link.sectionId && currentScreen === 'home') {
-            const target = document.getElementById(link.sectionId);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-                return;
+        if (link.sectionId) {
+            if (currentScreen !== 'home') {
+                setScreen('home');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        document.getElementById(link.sectionId)?.scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+            } else {
+                document.getElementById(link.sectionId)?.scrollIntoView({ behavior: 'smooth' });
             }
+            return;
         }
 
+        if (link.id === 'home' && currentScreen === 'home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
         setScreen(link.id);
     };
 
@@ -85,9 +109,9 @@ export default function Navbar({
     const handleRoleSelect = (newRole) => {
         setRole(newRole);
         if (newRole === 'Administrator') {
-            setScreen('admin');
+            setScreen('admin-overview');
         } else if (newRole === 'Creator') {
-            setScreen('creator');
+            setScreen('creator-overview');
         } else {
             setScreen('home');
         }
@@ -142,7 +166,7 @@ export default function Navbar({
                         <button
                             key={link.label}
                             type="button"
-                            className={`${styles.mobileNavLink} ${currentScreen === link.id ? styles.mobileNavActive : ''}`}
+                            className={`${styles.mobileNavLink} ${(currentScreen === 'home' && (link.id === 'home' || link.id === 'puzzles') ? homeSection === link.id : currentScreen === link.id) ? styles.mobileNavActive : ''}`}
                             onClick={() => handleNavClick(link)}
                         >
                             {link.label}
@@ -204,9 +228,9 @@ export default function Navbar({
                             type="button"
                             className={styles.userChip}
                             onClick={() => {
-                                if (role === 'Administrator') setScreen('admin');
-                                else if (role === 'Creator') setScreen('creator');
-                                else setScreen('dashboard');
+                                if (role === 'Administrator') setScreen('admin-overview');
+                                else if (role === 'Creator') setScreen('creator-overview');
+                                else setScreen('player-dashboard');
                             }}
                         >
                             <span className={styles.chipInitial}>{roleBadge}</span>
@@ -235,7 +259,7 @@ export default function Navbar({
                 </span>
                 <nav className={styles.prototypeLinks} aria-label="Primary navigation">
                     {workspaceLinks.map((link) => {
-                        const isActive = currentScreen === link.id;
+                        const isActive = currentScreen === 'home' && (link.id === 'home' || link.id === 'puzzles') ? homeSection === link.id : currentScreen === link.id;
                         return (
                             <button
                                 key={link.label}

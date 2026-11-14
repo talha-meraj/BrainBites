@@ -1,0 +1,33 @@
+.standardPage { max-width: var(--page-width, 1440px); width: calc(100% - 80px); margin: 44px auto 60px; color: var(--ink); }
+.sectionTitle { margin: 20px 0 28px; }
+.eyebrow { font-family: var(--mono); font-size: .65rem; font-weight: 700; letter-spacing: .16em; color: var(--muted); }
+.sectionTitle h1 { font-family: var(--display); font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.04em; margin: 8px 0; }
+.sectionTitle p, .hint { color: var(--muted); line-height: 1.55; }
+.gamePanel { max-width: 760px; border: 1px solid var(--ink); background: var(--paper); padding: clamp(22px, 4vw, 40px); }
+.gamePanel h2 { font-family: var(--display); font-size: clamp(1.4rem, 3vw, 1.9rem); letter-spacing: -.03em; margin: 20px 0 24px; }
+.meta { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 14px; color: var(--muted); font: 700 .72rem var(--mono); letter-spacing: .07em; }
+.choiceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 22px 0; }
+.choiceButton, .primaryButton, .secondaryButton, .backButton, .tile, .memoryCard { font: inherit; color: var(--ink); cursor: pointer; border: 1px solid var(--ink); background: var(--panel); }
+.choiceButton { padding: 17px; text-align: left; min-height: 62px; }
+.choiceButton:hover:not(:disabled), .secondaryButton:hover, .backButton:hover, .tile:hover, .memoryCard:hover:not(:disabled) { background: var(--surface); }
+.choiceButton:disabled { cursor: default; }
+.correct, .correct:disabled { border: 2px solid var(--green, #4f8158); background: var(--surface); }
+.incorrect, .incorrect:disabled { border: 2px solid #a65a4d; }
+.primaryButton, .secondaryButton, .backButton { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 12px 18px; font-family: var(--display); font-size: .83rem; font-weight: 700; text-transform: uppercase; }
+.primaryButton { background: var(--ink); color: var(--paper); margin: 12px 12px 0 0; }
+.primaryButton:hover { opacity: .85; }
+.secondaryButton { margin: 12px 12px 0 0; }
+.backButton { background: transparent; border-color: var(--line); }
+.feedback { display: flex; align-items: center; gap: 8px; padding: 16px; margin: 18px 0 4px; border-left: 3px solid var(--ink); background: var(--surface); line-height: 1.5; }
+.tiles { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 12px; }
+.tile { display: grid; place-items: center; width: clamp(44px, 8vw, 66px); height: clamp(52px, 9vw, 72px); font: 900 1.6rem var(--mono); touch-action: manipulation; }
+.selectedTile { outline: 3px solid var(--ink); outline-offset: 3px; background: var(--accent); color: var(--accent-ink); }
+.memoryGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 24px 0; }
+.memoryCard { aspect-ratio: 1; display: grid; place-items: center; font-size: clamp(1.3rem, 5vw, 2.4rem); font-weight: 700; }
+.memoryRevealed { background: var(--surface); }
+.memoryMatched { background: var(--accent); color: var(--accent-ink); }
+.result { padding: 20px 0; }
+.result p { color: var(--muted); }
+button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+@media (max-width: 640px) { .standardPage { width: calc(100% - 32px); } .choiceGrid { grid-template-columns: 1fr; } .memoryGrid { gap: 8px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }

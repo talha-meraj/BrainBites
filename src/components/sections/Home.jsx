@@ -77,7 +77,7 @@ export default function Home({ setScreen }) {
 
                         {/* Action Buttons Row */}
                         <div className={styles.buttonRow}>
-                            <Button onClick={() => go('game')}>
+                            <Button onClick={() => go('heatword')}>
                                 Play today's puzzle <ArrowRight size={17} />
                             </Button>
                             <button

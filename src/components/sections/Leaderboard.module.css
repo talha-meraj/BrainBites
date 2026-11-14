@@ -1,0 +1,43 @@
+/* Shared page conventions used by Help and Archive */
+.standardPage {
+    max-width: var(--page-width, 1440px);
+    width: calc(100% - 80px);
+    margin: 44px auto 60px;
+    color: var(--ink);
+}
+.sectionTitle { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; }
+.eyebrow { display: block; font-family: var(--mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; }
+.sectionTitle h1 { margin: 6px 0 0; font-family: var(--display); font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -0.04em; }
+.sectionDescription { margin: 12px 0 0; max-width: 650px; color: var(--muted); line-height: 1.5; }
+.panel { border: 1px solid var(--ink); background: var(--paper); padding: 32px; }
+.categoryTabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.categoryButton { border: 1px solid var(--line); padding: 12px 16px; background: var(--panel); color: var(--ink); font-family: var(--display); font-size: 0.82rem; font-weight: 700; cursor: pointer; }
+.categoryButton:hover { background: var(--surface); border-color: var(--ink); }
+.categoryActive, .categoryActive:hover { background: var(--surface); color: var(--ink); border-color: var(--ink); box-shadow: inset 0 -3px 0 var(--ink); }
+.categoryButton:focus-visible, .actionButton:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.podiumGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: 24px; }
+.podiumCard { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.podiumCard:first-child { background: var(--panel); }
+.podiumIcon { display: grid; place-items: center; width: 52px; height: 52px; margin: 22px 0 12px; border: 1px solid var(--ink); background: var(--accent); color: var(--accent-ink); }
+.podiumCard h2 { margin: 0 0 12px; font-family: var(--display); font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: -0.03em; overflow-wrap: anywhere; }
+.podiumScore { font-family: var(--mono); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 900; }
+.scoreLabel { margin-top: 4px; font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); }
+.rankingPanel { padding-bottom: 24px; }
+.rankingHeader { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.rankingHeader h2 { font-family: var(--display); font-size: 1.6rem; letter-spacing: -0.03em; margin: 6px 0 0; }
+.demoLabel { color: var(--muted); font-family: var(--mono); font-size: 0.7rem; }
+.tableScroll { width: 100%; overflow-x: auto; }
+.rankingsTable { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+.rankingsTable th { padding: 14px 16px; background: var(--surface); border-bottom: 1px solid var(--ink); color: var(--muted); font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.rankingsTable td { padding: 14px 16px; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+.rankingsTable tbody tr:hover { background: var(--surface); }
+.rankNumber { font-family: var(--mono); font-weight: 700; color: var(--muted); }
+.playerCell { display: inline-flex; align-items: center; gap: 12px; }
+.avatar { display: inline-grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--ink); background: var(--surface); font-family: var(--mono); font-size: 0.68rem; font-weight: 900; }
+.scoreCell { font-family: var(--mono); font-weight: 700; }
+.buttonRow { display: flex; padding-top: 24px; margin-top: 22px; border-top: 1px solid var(--line); }
+.actionButton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 12px 18px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font-family: var(--display); font-size: 0.82rem; font-weight: 700; cursor: pointer; text-transform: uppercase; }
+.actionButton:hover { background: var(--surface); border-color: var(--ink); }
+@media (max-width: 900px) { .podiumGrid { grid-template-columns: 1fr; gap: 16px; } .podiumCard { padding: 24px; } .podiumIcon { margin-top: 14px; } }
+@media (max-width: 640px) { .standardPage { width: calc(100% - 32px); } .rankingPanel { padding: 20px 12px; } .rankingsTable th, .rankingsTable td { padding: 12px 10px; } .rankingHeader { align-items: flex-start; flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .categoryButton, .actionButton { transition: none; } }
