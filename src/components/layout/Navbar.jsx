@@ -228,7 +228,7 @@ export default function Navbar({
                 </div>
             </div>
 
-            {/* Tier 2: Workspace Navigation Black Bar matching Figma */}
+            {/* Tier 2: Workspace Navigation Black Bar */}
             <div className={styles.workspaceNav}>
                 <span className={styles.prototypeLabel}>
                     {role === 'Guest' ? 'Play' : role === 'Administrator' ? 'Admin' : role}

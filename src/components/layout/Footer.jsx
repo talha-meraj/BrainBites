@@ -7,7 +7,6 @@ import styles from './Footer.module.css';
  * Academic and diagnostic application footer:
  * - Mini logo with 28px BrandMark and bold title
  * - Project tagline
- * - Direct button trigger to edge cases view (testing)
  * - Fixed floating help bubble button '?'
  *
  * @param {Function} setScreen - State dispatcher to switch between routes
@@ -28,16 +27,16 @@ export default function Footer({ setScreen }) {
                     <b>BrainBites</b>
                 </button>
 
-                {/* Academic Project Tagline */}
+                {/* Project Tagline */}
                 <p className={styles.tagline}>
                     A little challenge. A sharper mind.
                     <br />
-                    <small>Interactive prototype · Explore every role above.</small>
+                    <small>Train Your Brain</small>
                 </p>
 
             </footer>
 
-            {/* Fixed Floating Help Launcher Button */}
+            {/* Floating Help Launcher Button */}
             <button
                 type="button"
                 className={styles.floatingHelp}

@@ -17,15 +17,12 @@ export default function Help({ setScreen }) {
 
     return (
         <div className={styles.standardPage}>
-            {/* Page Header with Troubleshooting Link */}
+            {/* Page Header */}
             <div className={styles.sectionTitle}>
                 <div>
                     <span className={styles.eyebrow}>PLAYER GUIDE</span>
                     <h2>Help & puzzle rules</h2>
                 </div>
-                <Button variant="secondary" onClick={() => go('errors')}>
-                    Troubleshooting
-                </Button>
             </div>
 
             {/* Two-Column Help Panels Grid */}

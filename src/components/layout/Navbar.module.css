@@ -1,8 +1,3 @@
-/* ==========================================================================
-   Two-Tier Sticky Site Header Stylesheet
-   Matches Figma Prototype (BrainBites Website Wireframe Prototype)
-   ========================================================================== */
-
 /* Outer Sticky Shell */
 .siteHeader {
     position: sticky;
@@ -12,7 +7,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Tier 1: Brand Row (Logo + Top Actions)
+   Tier 1: Logo + Top Actions
    -------------------------------------------------------------------------- */
 .brandRow {
     display: flex;
@@ -109,7 +104,7 @@
     background: var(--accent);
 }
 
-/* Figma Auth CTA Button with 4px Accent Shadow */
+/* Auth CTA Button with Accent Shadow */
 .authButton {
     display: inline-flex;
     align-items: center;
@@ -241,7 +236,7 @@
     background: #33332e;
 }
 
-/* Figma Active Tab: Yellow Accent Pill with Black Text */
+/* Yellow Accent Pill with Black Text */
 .workspaceLinkBtn.active {
     background: var(--accent);
     color: var(--black, #111110);
