@@ -1,0 +1,544 @@
+/* Main Page Container */
+.homeContainer {
+    width: 100%;
+}
+
+/* Daily Feature Split Layout (Challenge Hero + Rankings Aside) */
+.dailyFeature {
+    display: grid;
+    grid-template-columns: 1.92fr 1fr;
+    max-width: var(--page-width, 1440px);
+    width: calc(100% - 80px);
+    margin: 44px auto 0;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+}
+
+/* Daily Challenge Prime Card */
+.dailyChallenge {
+    background: var(--panel);
+    padding: 40px 44px 30px;
+    border-right: 1px solid var(--ink);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* Decorative Yellow Accent Ring in Background */
+.dailyChallenge::before {
+    content: "";
+    width: 285px;
+    height: 285px;
+    border: 43px solid var(--accent);
+    border-radius: 50%;
+    position: absolute;
+    right: -51px;
+    top: -75px;
+    z-index: -1;
+    opacity: 0.65;
+}
+
+/* Topline Row with Square Marker & Date */
+.challengeTopline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 34px;
+}
+
+.challengeTopline>span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.6rem;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.challengeTopline i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--ink);
+}
+
+.challengeTopline hr {
+    flex: 1;
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 0;
+}
+
+.challengeTopline time {
+    font-family: var(--mono);
+    font-size: 0.54rem;
+    white-space: nowrap;
+    color: var(--muted);
+}
+
+.heroCopy {
+    padding: 0;
+}
+
+/* Eyebrow Label Typography */
+.eyebrow {
+    display: block;
+    font-weight: 700;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-family: var(--mono);
+}
+
+/* Big Display Challenge Title */
+.challengeTitle {
+    font-size: clamp(3.2rem, 5.1vw, 5rem);
+    line-height: 0.95;
+    margin: 22px 0 28px;
+    letter-spacing: -0.07em;
+    font-family: var(--display);
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* Difficulty Rating Row */
+.challengeDifficulty {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.starRow {
+    display: inline-flex;
+    gap: 3px;
+    color: var(--ink);
+}
+
+.unfilledStar {
+    color: var(--line);
+}
+
+.challengeDifficulty b {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+}
+
+.challengeDesc {
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 540px;
+    margin-bottom: 24px;
+}
+
+/* Heatword Letter Tiles Preview Strip */
+.heroHeatPreview {
+    display: inline-flex;
+    gap: 8px;
+    margin-bottom: 30px;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid var(--ink);
+}
+
+.heroHeatPreview span {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 48px;
+    font-family: var(--mono);
+    font-size: 1.25rem;
+    font-weight: 900;
+    border: 1px solid var(--ink);
+    color: #ffffff;
+}
+
+/* Heat State Tokens */
+.heat-exact {
+    background: var(--heat-exact, #4f8158);
+}
+
+.heat-present {
+    background: var(--heat-present, #f2a91d);
+    color: var(--ink) !important;
+}
+
+.heat-near-one {
+    background: var(--heat-near-one, #e95d3f);
+}
+
+.heat-near-five {
+    background: var(--heat-near-five, #7652a8);
+}
+
+.heat-far {
+    background: var(--heat-far, #85857e);
+}
+
+/* Action Buttons Row */
+.buttonRow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.quietLink {
+    border: 0;
+    background: none;
+    font-family: var(--display);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+}
+
+.quietLink:hover {
+    text-decoration: underline;
+}
+
+/* Stats Footer Row */
+.heroMeta {
+    display: flex;
+    gap: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.heroMeta span b {
+    color: var(--ink);
+    font-weight: 900;
+    margin-right: 4px;
+}
+
+/* Global Leaderboard Aside */
+.dailyRankings {
+    padding: 40px 36px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dailyRankings h2 {
+    font-size: 1.6rem;
+    letter-spacing: -0.04em;
+    margin: 10px 0 24px;
+}
+
+.rankingsList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.rankingItem {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+}
+
+.rankNumber {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    width: 24px;
+}
+
+.rankAvatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--ink);
+    display: grid;
+    place-items: center;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+}
+
+.rankAvatar.first {
+    background: var(--accent);
+    color: var(--accent-ink);
+}
+
+.rankPlayerName {
+    font-size: 0.88rem;
+    letter-spacing: -0.01em;
+}
+
+.rankTime {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+}
+
+.rankingsQuietLink {
+    margin-top: 22px;
+}
+
+.leaderboardNote {
+    margin-top: auto;
+    padding-top: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Puzzle Library Catalog Section */
+.contentSection {
+    max-width: var(--page-width, 1440px);
+    width: calc(100% - 80px);
+    margin: 64px auto 0;
+}
+
+.sectionTitle {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.sectionTitle h2 {
+    font-size: 2rem;
+    letter-spacing: -0.04em;
+    margin: 6px 0 0;
+}
+
+.textLink {
+    border: 0;
+    background: none;
+    font-family: var(--display);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--ink);
+}
+
+.textLink:hover {
+    text-decoration: underline;
+}
+
+/* Cards Grid Layout */
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+}
+
+.puzzleCard {
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+}
+
+.puzzleGlyph {
+    height: 140px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--ink);
+    display: grid;
+    place-items: center;
+}
+
+.glyph0 {
+    background: #fdfaf0;
+}
+
+.glyph1 {
+    background: #f2f7f4;
+}
+
+.letterTiles {
+    display: inline-flex;
+    gap: 6px;
+}
+
+.letterTiles span {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 40px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.cardBody {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.cardTop {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.cardBody h3 {
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+}
+
+.cardBody p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.45;
+    margin-bottom: 24px;
+    flex: 1;
+}
+
+.cardFoot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: 0.72rem;
+    color: var(--muted);
+}
+
+.difficulty {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.difficulty-easy {
+    color: var(--green);
+}
+
+.difficulty-medium {
+    color: #b57a16;
+}
+
+.cardFoot button {
+    border: 0;
+    background: none;
+    font-family: var(--display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--ink);
+}
+
+/* Past Archives Calendar Date Tiles */
+.pastArchives {
+    max-width: var(--page-width, 1440px);
+    width: calc(100% - 80px);
+    margin: 64px auto 60px;
+}
+
+.archiveTiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.archiveTileBtn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border: 1px solid var(--ink);
+    background: var(--panel);
+    cursor: pointer;
+    color: var(--ink);
+    text-align: left;
+    transition: transform 0.1s ease, background 0.15s ease;
+}
+
+.archiveTileBtn:hover {
+    background: var(--surface);
+    transform: translateY(-2px);
+}
+
+.archiveTileBtn>span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 14px;
+    border-right: 1px solid var(--line);
+}
+
+.archiveTileBtn strong {
+    font-family: var(--mono);
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.archiveTileBtn small {
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+}
+
+.archiveTileBtn b {
+    font-size: 0.88rem;
+    flex: 1;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+    .dailyFeature {
+        grid-template-columns: 1fr;
+    }
+
+    .dailyChallenge {
+        border-right: none;
+        border-bottom: 1px solid var(--ink);
+    }
+}
+
+@media (max-width: 640px) {
+
+    .dailyFeature,
+    .contentSection,
+    .pastArchives {
+        width: calc(100% - 32px);
+    }
+
+    .dailyChallenge {
+        padding: 24px;
+    }
+
+    .heroHeatPreview span {
+        width: 36px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
