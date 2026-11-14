@@ -1,0 +1,48 @@
+.brandMark {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2px;
+    padding: 3px;
+    background-color: var(--ink);
+    border: 2px solid var(--ink);
+    box-shadow: 2px 2px 0 var(--ink);
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.brandMark i {
+    display: block;
+    border-radius: 1px;
+}
+
+.brandMark.small {
+    width: 22px;
+    height: 22px;
+}
+
+.brandMark.medium {
+    width: 32px;
+    height: 32px;
+}
+
+.brandMark.large {
+    width: 44px;
+    height: 44px;
+}
+
+.q1 {
+    background-color: var(--accent);
+}
+
+.q2 {
+    background-color: var(--paper);
+}
+
+.q3 {
+    background-color: var(--paper);
+}
+
+.q4 {
+    background-color: var(--green);
+}
