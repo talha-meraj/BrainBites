@@ -542,3 +542,5 @@
         font-size: 1rem;
     }
 }
+/* Keep the puzzle library heading visible beneath the sticky navigation. */
+:global(#puzzle-library) { scroll-margin-top: 165px; }
