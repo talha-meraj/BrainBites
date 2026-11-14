@@ -70,12 +70,23 @@ export default function Navbar({
     const handleNavClick = (link) => {
         setMenuOpen(false);
 
-        if (link.sectionId && currentScreen === 'home') {
-            const target = document.getElementById(link.sectionId);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-                return;
+        if (link.sectionId) {
+            if (currentScreen !== 'home') {
+                setScreen('home');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        document.getElementById(link.sectionId)?.scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+            } else {
+                document.getElementById(link.sectionId)?.scrollIntoView({ behavior: 'smooth' });
             }
+            return;
+        }
+
+        if (link.id === 'archive') {
+            setScreen('archive');
+            return;
         }
 
         setScreen(link.id);
