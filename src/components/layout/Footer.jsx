@@ -35,14 +35,6 @@ export default function Footer({ setScreen }) {
                     <small>Interactive prototype · Explore every role above.</small>
                 </p>
 
-                {/* Edge Cases & Diagnostic Recovery Trigger */}
-                <button
-                    type="button"
-                    className={styles.edgeCasesButton}
-                    onClick={() => setScreen('errors')}
-                >
-                    View all edge cases →
-                </button>
             </footer>
 
             {/* Fixed Floating Help Launcher Button */}

@@ -47,23 +47,6 @@
     font-size: 0.6rem;
 }
 
-/* Edge Cases Text Link Button */
-.edgeCasesButton {
-    border: 0;
-    background: none;
-    font-family: var(--display, "Archivo Black", sans-serif);
-    font-weight: 700;
-    font-size: 0.65rem;
-    text-decoration: underline;
-    cursor: pointer;
-    color: var(--ink);
-    white-space: nowrap;
-}
-
-.edgeCasesButton:hover {
-    color: var(--accent-ink);
-}
-
 /* Fixed Floating Help Bubble Button */
 .floatingHelp {
     position: fixed;

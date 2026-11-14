@@ -1,46 +1,82 @@
-import React, { useState } from 'react';
-import Navbar from './components/layout/Navbar.jsx';
+import { useState, useEffect } from 'react';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import Home from './components/sections/Home';
+import Login from './components/sections/Login';
+import Register from './components/sections/Register';
+import Help from './components/sections/Help';
 
+/**
+ * BrainBites Root Application Component
+ * -------------------------------------
+ */
 export default function App() {
-    const [currentScreen, setCurrentScreen] = useState('home');
-    const [role, setRole] = useState('Guest');
-    const [theme, setTheme] = useState('light');
+    // Theme state persisted in localStorage
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem('bb_theme') || 'light';
+    });
 
+    // Current active screen route
+    const [screen, setScreen] = useState('home');
+
+    // Current simulation persona
+    const [role, setRole] = useState('Guest');
+
+    // Synchronize HTML root data-theme attribute whenever theme changes
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('bb_theme', theme);
+    }, [theme]);
+
+    // Toggle between light and dark modes
     const toggleTheme = () => {
-        setTheme(prev => prev === 'light' ? 'dark' : 'light');
+        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    };
+
+    // Role switching handler
+    const handleRoleChange = (newRole) => {
+        setRole(newRole);
     };
 
     return (
-        <div className={`app ${theme === 'dark' ? 'dark' : ''} min-h-screen flex flex-col justify-between bg-[var(--paper)] text-[var(--ink)]`}>
-            {/* Navbar with matching prop names */}
+        <div className={`app ${theme === 'dark' ? 'dark' : ''}`}>
+            {/* Skip to Content Link for Keyboard and Screen-Reader Accessibility */}
+            <a
+                className="skip-link"
+                href="#main-content"
+                style={{
+                    position: 'fixed',
+                    top: '-80px',
+                    left: '16px'
+                }}
+            >
+                Skip to content
+            </a>
+
+            {/* Two-Tier Sticky Navigation Header */}
             <Navbar
-                currentScreen={currentScreen}
-                setScreen={setCurrentScreen}
+                currentScreen={screen}
+                setScreen={setScreen}
                 role={role}
-                setRole={setRole}
+                setRole={handleRoleChange}
                 theme={theme}
                 toggleTheme={toggleTheme}
+                onLogout={() => {
+                    setRole('Guest');
+                    setScreen('home');
+                }}
             />
 
-            {/* Main Display to verify active route & role */}
-            <main className="max-w-4xl mx-auto px-6 py-12 w-full flex-1 space-y-6">
-                <div className="bg-[var(--surface)] border-2 border-[var(--ink)] p-8 shadow-[6px_6px_0_var(--ink)] space-y-4">
-                    <span className="eyebrow">Active Navigation State</span>
-                    <h1 className="text-3xl font-black font-['Archivo_Black',sans-serif] m-0">
-                        Route: {currentScreen.toUpperCase()}
-                    </h1>
-                    <p className="text-base text-[var(--muted)]">
-                        Viewing site as role: <strong className="text-[var(--ink)] font-mono">{role}</strong>
-                    </p>
-                    <p className="text-xs font-mono text-[var(--muted)]">
-                        Click the hamburger menu button in the top right to open the "VIEW AS" role switcher!
-                    </p>
-                </div>
+            {/* Main Content View Switcher */}
+            <main id="main-content" tabIndex={-1}>
+                {screen === 'home' && <Home setScreen={setScreen} />}
+                {screen === 'login' && <Login setScreen={setScreen} setRole={handleRoleChange} />}
+                {screen === 'register' && <Register setScreen={setScreen} setRole={handleRoleChange} />}
+                {screen === 'help' && <Help setScreen={setScreen} />}
             </main>
 
-            <footer className="border-t-2 border-[var(--ink)] bg-[var(--surface)] p-4 text-center text-xs font-mono text-[var(--muted)]">
-                BrainBites • SWE-363
-            </footer>
+            {/* Academic Footer */}
+            <Footer setScreen={setScreen} />
         </div>
     );
 }
