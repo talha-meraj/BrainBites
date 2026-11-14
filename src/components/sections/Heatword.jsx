@@ -18,7 +18,9 @@ export function gradeGuess(guess, answer) {
   for (let i = 0; i < 5; i++) {
     if (result[i]) continue;
     if (remaining[guess[i]] > 0) {
-      result[i] = 'present';
+      const distance = alphabetDistance(guess[i], answer[i]);
+      const temperature = distance === 1 ? 'hot' : distance <= 5 ? 'warm' : 'cold';
+      result[i] = `present-${temperature}`;
       remaining[guess[i]]--;
     } else {
       const distance = alphabetDistance(guess[i], answer[i]);
@@ -61,7 +63,7 @@ export default function Heatword({ setScreen }) {
     return () => window.removeEventListener('keydown', handler);
   });
   const keyboardColors = {};
-  const priority = { cold: 0, warm: 1, hot: 2, present: 3, exact: 4 };
+  const priority = { cold: 0, warm: 1, hot: 2, 'present-cold': 3, 'present-warm': 4, 'present-hot': 5, exact: 6 };
   guesses.forEach(({ word, colors }) => [...word].forEach((letter, index) => {
     const color = colors[index];
     if (!keyboardColors[letter] || priority[color] > priority[keyboardColors[letter]]) keyboardColors[letter] = color;
@@ -91,15 +93,17 @@ export default function Heatword({ setScreen }) {
         </div>
         <div className={styles.actions}>{finished ? <button className={styles.primaryButton} onClick={() => restart(true)}>Next puzzle →</button> : <button className={styles.primaryButton} onClick={submit}>Submit guess →</button>}<button className={styles.textButton} onClick={() => restart(false)}><RotateCcw size={15}/> Restart</button></div>
       </section>
-      <aside className={styles.rulesPanel}><span className={styles.eyebrow}>HOW TO READ THE HEAT</span><h2>Every letter gives a clue</h2><p>Standard Wordle matching comes first. If a letter isn't in the answer, its tile shows how far it is from the answer letter at that position in the alphabet.</p>
+      <aside className={styles.rulesPanel}><span className={styles.eyebrow}>HOW TO READ THE HEAT</span><h2>Every letter gives a clue</h2><p>Green means an exact match. A diagonal yellow tile means the letter is elsewhere in the word; its other half shows the alphabetical temperature relative to the answer letter at this position. Solid red, purple, or gray tiles show temperature when the letter isn't matched elsewhere.</p>
         <div className={styles.legend}>{[
           ['exact', 'A', 'EXACT', 'Right letter, right position'],
-          ['present', 'A', 'PRESENT', 'In the word, different position'],
+          ['present-hot', 'A', 'PRESENT + HOT', 'Elsewhere in the word; one alphabet step from this position'],
+          ['present-warm', 'A', 'PRESENT + WARM', 'Elsewhere in the word; two to five steps from this position'],
+          ['present-cold', 'A', 'PRESENT + COLD', 'Elsewhere in the word; more than five steps from this position'],
           ['hot', 'B', 'HOT', 'One alphabet step away'],
           ['warm', 'F', 'WARM', 'Two to five alphabet steps away'],
           ['cold', 'Z', 'COLD', 'More than five steps away']
         ].map(([color, letter, label, detail]) => <div className={styles.legendItem} key={color}><span className={`${styles.legendTile} ${styles[color]}`}>{letter}</span><div><strong>{label}</strong><small>{detail}</small></div></div>)}</div>
-        <p className={styles.tip}>Example: If the answer letter is A, B is hot and F is warm.</p>
+        <p className={styles.tip}>Example: If the answer letter at this position is A, B is hot and F is warm. The diagonal's yellow half independently indicates that the guessed letter also appears elsewhere in the word.</p>
         <p className={styles.disclaimer}>Frontend demo: the answer rotates through five example words. Guesses don't require a dictionary lookup.</p>
       </aside>
     </div>

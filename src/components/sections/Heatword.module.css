@@ -5,3 +5,16 @@
 .status{width:min(100%,365px);min-height:44px;display:grid;place-items:center;text-align:center;border:1px solid var(--ink);background:var(--panel);font-weight:700;font-size:.84rem;padding:8px;margin-bottom:12px}.keyboard{display:grid;gap:5px;width:min(100%,420px)}.keyboardRow{display:flex;justify-content:center;gap:4px}.key,.wideKey{min-width:0;flex:1;height:36px;padding:0 2px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font:700 .75rem var(--mono);cursor:pointer}.wideKey{flex:0 1 90px;height:38px}.key:hover:not(:disabled),.wideKey:hover:not(:disabled){outline:1px solid var(--ink)}.key:disabled,.wideKey:disabled{cursor:default;opacity:.85}.actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:18px}.primaryButton{border:1px solid var(--ink);background:var(--accent);color:var(--accent-ink);padding:12px 20px;font:700 .82rem var(--display);cursor:pointer}.textButton{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:10px 14px;font:700 .78rem var(--display);cursor:pointer}.primaryButton:hover,.textButton:hover{filter:brightness(.96)}
 .legend{margin:20px 0}.legendItem{display:flex;align-items:center;gap:14px;border-top:1px solid var(--line);padding:10px 0}.legendItem:last-child{border-bottom:1px solid var(--line)}.legendTile{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--ink);font:700 .85rem var(--mono);flex-shrink:0}.legendItem strong,.legendItem small{display:block}.legendItem strong{font-size:.74rem}.legendItem small{font-size:.72rem;color:var(--muted);margin-top:3px}.rulesPanel .tip{background:var(--panel);border:1px solid var(--ink);padding:12px;color:var(--ink)}.rulesPanel .disclaimer{font-size:.73rem}
 @media(max-width:900px){.gameLayout{grid-template-columns:1fr}.rulesPanel{border-left:0;border-top:1px solid var(--ink)}}@media(max-width:640px){.standardPage{width:calc(100% - 32px)}.sectionTitle{align-items:start;flex-direction:column}.boardPanel{padding:20px 8px}.rulesPanel{padding:24px}.tile{width:clamp(42px,11vw,58px);height:clamp(44px,12vw,58px)}.key{font-size:.67rem}}
+
+/* Dual-signal feedback: yellow indicates presence elsewhere, the other half indicates heat.
+   These classes intentionally come after solid-color rules and use !important
+   so the diagonal works on both board tiles and keyboard keys. */
+.present-hot{background:linear-gradient(135deg,#f2a91d 50%,#e95d3f 50%)!important;color:#171711!important;text-shadow:0 1px 1px rgba(255,255,255,.45)}
+.present-warm{background:linear-gradient(135deg,#f2a91d 50%,#7652a8 50%)!important;color:#171711!important;text-shadow:0 1px 1px rgba(255,255,255,.45)}
+.present-cold{background:linear-gradient(135deg,#f2a91d 50%,#85857e 50%)!important;color:#171711!important;text-shadow:0 1px 1px rgba(255,255,255,.45)}
+
+/* Uniform, centered on-screen keyboard: keys no longer stretch by row length. */
+.keyboard{width:100%;max-width:420px;justify-items:center}
+.keyboardRow{width:100%;justify-content:center}
+.key{flex:0 0 auto;width:clamp(20px,6.7vw,36px);height:38px;box-sizing:border-box}
+.wideKey{flex:0 0 auto;width:90px;height:38px;box-sizing:border-box}
