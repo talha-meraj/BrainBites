@@ -1,0 +1,420 @@
+/* ==========================================================================
+   Two-Tier Sticky Site Header Stylesheet
+   Matches Figma Prototype (BrainBites Website Wireframe Prototype)
+   ========================================================================== */
+
+/* Outer Sticky Shell */
+.siteHeader {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--paper);
+}
+
+/* --------------------------------------------------------------------------
+   Tier 1: Brand Row (Logo + Top Actions)
+   -------------------------------------------------------------------------- */
+.brandRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 80px;
+    padding: 14px 32px;
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper);
+    box-sizing: border-box;
+}
+
+/* Brand Logo Button */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+    border: 0;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--ink);
+}
+
+.logo b {
+    display: block;
+    font-family: var(--display, "Archivo Black", sans-serif);
+    font-size: 1.125rem;
+    letter-spacing: -0.045em;
+    font-weight: 900;
+    color: var(--ink);
+}
+
+/* Desktop Top Actions Controls */
+.topActions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-left: auto;
+}
+
+/* Dark Mode Pill Slider Switch */
+.themeToggle {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    min-height: 40px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: var(--ink);
+}
+
+.themeToggle>span {
+    display: inline;
+    font-family: var(--display, "Archivo Black", sans-serif);
+    font-size: var(--type-ui, 0.875rem);
+    letter-spacing: 0.06em;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.themeToggle i {
+    display: block;
+    width: 58px;
+    height: 32px;
+    padding: 4px;
+    border-width: 2px;
+    border-radius: 20px;
+    border: 2px solid var(--ink);
+    position: relative;
+    box-sizing: border-box;
+    background: var(--surface);
+    transition: background-color 0.2s;
+}
+
+.themeToggle i::after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink);
+    transition: transform 0.15s;
+}
+
+.themeToggle i.toggleOn::after {
+    transform: translateX(26px);
+    background: var(--accent);
+}
+
+/* Figma Auth CTA Button with 4px Accent Shadow */
+.authButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    color: var(--paper);
+    min-height: 48px;
+    padding: 12px 20px;
+    border: 2px solid var(--paper);
+    outline: 1px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--accent);
+    font-family: var(--display, "Archivo Black", sans-serif);
+    font-size: var(--type-ui, 0.875rem);
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.authButton:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--accent);
+}
+
+/* User Badge Chip when Logged In */
+.userChip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 6px 14px 6px 8px;
+    border: 2px solid var(--ink);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--display, "Archivo Black", sans-serif);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+.chipInitial {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 1px solid var(--ink);
+    font-weight: 900;
+    font-size: 0.75rem;
+}
+
+/* Mobile Hamburger Menu Button */
+.menuButton {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    min-height: 40px;
+    padding: 0;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Tier 2: Workspace Navigation Black Bar
+   -------------------------------------------------------------------------- */
+.workspaceNav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    min-height: 58px;
+    gap: 26px;
+    padding-inline: 24px;
+    background: var(--black, #111110);
+    color: var(--light, #f6f5ee);
+    border-bottom: 1px solid #454540;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.prototypeLabel {
+    justify-self: end;
+    font-family: var(--mono, "Space Mono", monospace);
+    font-size: var(--type-caption, 0.75rem);
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #b0afa6;
+}
+
+.prototypeLinks {
+    grid-column: 2;
+    flex: 0 1 auto;
+    align-items: stretch;
+    display: flex;
+    align-self: stretch;
+    width: max-content;
+    max-width: 100%;
+    justify-content: safe center;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--black);
+}
+
+.workspaceLinkBtn {
+    font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    padding: 16px 24px;
+    min-height: 58px;
+    border: 0;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    background: none;
+    color: inherit;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.workspaceLinkBtn:hover:not(.active) {
+    background: #33332e;
+}
+
+/* Figma Active Tab: Yellow Accent Pill with Black Text */
+.workspaceLinkBtn.active {
+    background: var(--accent);
+    color: var(--black, #111110);
+    border-color: var(--light, #f6f5ee);
+    font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Navigation Drawer (when opened via menu button)
+   -------------------------------------------------------------------------- */
+.mainNav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 24px;
+    width: min(380px, calc(100% - 48px));
+    max-height: calc(100dvh - 190px);
+    overflow-y: auto;
+    padding: 20px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--accent);
+    z-index: 100;
+}
+
+.navOpen {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+@media (max-width: 900px) {
+    .menuButton {
+        display: grid;
+    }
+
+    .mainNav {
+        position: absolute;
+        top: 100%;
+        right: 24px;
+        width: min(380px, calc(100% - 48px));
+        max-height: calc(100dvh - 190px);
+        overflow-y: auto;
+        padding: 20px;
+        background: var(--paper);
+        border: 1px solid var(--ink);
+        box-shadow: 5px 5px 0 var(--accent);
+        z-index: 100;
+    }
+
+    .navOpen {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .mobileNavLink {
+        min-height: 48px;
+        padding: 12px;
+        text-align: left;
+        border: 0;
+        background: none;
+        font-size: var(--type-ui, 0.875rem);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        color: var(--ink);
+        font-family: var(--display, "Archivo Black", sans-serif);
+        font-weight: 700;
+    }
+
+    .mobileNavActive {
+        background: var(--accent);
+        color: var(--accent-ink);
+    }
+
+    .navRoleSwitch {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        margin: 0 0 12px;
+        padding: 0 0 16px;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .roleSwitchLabel {
+        font-size: var(--type-caption, 0.75rem);
+        font-family: var(--mono, "Space Mono", monospace);
+        color: var(--muted);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .previewRoleOptions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .previewRoleOptions button {
+        min-height: 44px;
+        padding: 10px 6px;
+        border: 1px solid var(--ink);
+        background: var(--surface);
+        color: var(--ink);
+        font-size: var(--type-caption, 0.75rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        font-family: var(--display, "Archivo Black", sans-serif);
+    }
+
+    .previewRoleOptions button:hover,
+    .previewRoleOptions button.roleBtnActive {
+        background: var(--accent);
+        color: var(--accent-ink);
+    }
+
+    .previewRoleHint {
+        color: var(--muted);
+        font-size: var(--type-caption, 0.75rem);
+        line-height: 1.5;
+    }
+
+    .mobileAccountActions {
+        display: flex;
+        flex-direction: column;
+        margin-top: 12px;
+        border-top: 1px solid var(--line);
+    }
+
+    .mobileAccountActions button {
+        min-height: 48px;
+        padding: 12px;
+        text-align: left;
+        border: 0;
+        background: none;
+        font-size: var(--type-ui, 0.875rem);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        color: var(--ink);
+        font-family: var(--display, "Archivo Black", sans-serif);
+        font-weight: 700;
+    }
+
+    .workspaceNav {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .prototypeLabel {
+        display: none;
+    }
+
+    .prototypeLinks button {
+        padding-inline: 20px;
+        font-size: 1rem;
+    }
+
+    .brandRow {
+        padding-inline: 24px;
+        gap: 20px;
+    }
+
+    .topActions {
+        gap: 16px;
+    }
+
+    .themeToggle>span {
+        display: none;
+    }
+}

@@ -5,10 +5,17 @@
    ========================================================================== */
 
 :root {
-    /* Fonts */
+    font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+    color: #181818;
+    background: #f5f4f0;
+    font-synthesis: none;
+
+    /* Core Fonts */
     --font-display: "Archivo Black", "DM Sans", sans-serif;
     --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-mono: "Space Mono", ui-monospace, SFMono-Regular, monospace;
+    --display: "Archivo Black", "DM Sans", sans-serif;
+    --mono: "Space Mono", ui-monospace, monospace;
 
     /* Color Palette - Light Mode */
     --ink: #181818;
@@ -18,10 +25,13 @@
     --line: #aaa9a1;
     --muted: #55554f;
 
-    /* Accent Colors */
+    /* Accent & Status Colors */
     --accent: #ffe14f;
     --accent-soft: #fff1a3;
     --accent-ink: #181818;
+
+    --black: #111110;
+    --light: #f6f5ee;
 
     --green: #326043;
     --green-soft: #e2ebdf;
@@ -32,20 +42,30 @@
     --blue: #2563eb;
     --blue-soft: #dbeafe;
 
+    /* Heatword Color Heat Tokens */
+    --heat-exact: #4f8158;
+    --heat-present: #f2a91d;
+    --heat-near-one: #e95d3f;
+    --heat-near-five: #7652a8;
+    --heat-far: #85857e;
+
     /* Brutalist Shadows */
-    --shadow: 4px 4px 0 #181818;
+    --shadow: 5px 5px 0 #181818;
     --shadow-sm: 2px 2px 0 #181818;
     --shadow-lg: 6px 6px 0 #181818;
 
-    /* Spacing & Layout */
+    /* Typography Scale */
+    --type-caption: .75rem;
+    --type-ui: .875rem;
+
+    /* Layout Constraints */
+    --page-width: 1440px;
     --nav-height: 80px;
-    --max-width: 1240px;
-    --radius-sm: 2px;
-    --radius-md: 4px;
 }
 
 /* Dark Mode Tokens */
-[data-theme='dark'] {
+[data-theme='dark'],
+.app.dark {
     --ink: #f3f2ec;
     --paper: #141414;
     --surface: #1b1b1b;
@@ -58,12 +78,14 @@
     --green-soft: #253629;
     --red: #ff8b7a;
     --red-soft: #412624;
-    --blue: #60a5fa;
-    --blue-soft: #1e3a8a;
 
-    --shadow: 4px 4px 0 #000000;
-    --shadow-sm: 2px 2px 0 #000000;
-    --shadow-lg: 6px 6px 0 #000000;
+    --shadow: 5px 5px 0 #080808;
+
+    --heat-exact: #6fa878;
+    --heat-present: #ffc14d;
+    --heat-near-one: #f2765c;
+    --heat-near-five: #7652a8;
+    --heat-far: #65655f;
 }
 
 /* Universal Box-Sizing & Reset */
