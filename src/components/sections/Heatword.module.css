@@ -6,15 +6,23 @@
 .legend{margin:20px 0}.legendItem{display:flex;align-items:center;gap:14px;border-top:1px solid var(--line);padding:10px 0}.legendItem:last-child{border-bottom:1px solid var(--line)}.legendTile{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--ink);font:700 .85rem var(--mono);flex-shrink:0}.legendItem strong,.legendItem small{display:block}.legendItem strong{font-size:.74rem}.legendItem small{font-size:.72rem;color:var(--muted);margin-top:3px}.rulesPanel .tip{background:var(--panel);border:1px solid var(--ink);padding:12px;color:var(--ink)}.rulesPanel .disclaimer{font-size:.73rem}
 @media(max-width:900px){.gameLayout{grid-template-columns:1fr}.rulesPanel{border-left:0;border-top:1px solid var(--ink)}}@media(max-width:640px){.standardPage{width:calc(100% - 32px)}.sectionTitle{align-items:start;flex-direction:column}.boardPanel{padding:20px 8px}.rulesPanel{padding:24px}.tile{width:clamp(42px,11vw,58px);height:clamp(44px,12vw,58px)}.key{font-size:.67rem}}
 
-/* Dual-signal feedback: yellow indicates presence elsewhere, the other half indicates heat.
+/* Dual-signal feedback: yellow indicates presence elsewhere when hot or warm, the other half indicates heat.
    These classes intentionally come after solid-color rules and use !important
    so the diagonal works on both board tiles and keyboard keys. */
 .present-hot{background:linear-gradient(135deg,#f2a91d 50%,#e95d3f 50%)!important;color:#171711!important;text-shadow:0 1px 1px rgba(255,255,255,.45)}
 .present-warm{background:linear-gradient(135deg,#f2a91d 50%,#7652a8 50%)!important;color:#171711!important;text-shadow:0 1px 1px rgba(255,255,255,.45)}
-.present-cold{background:linear-gradient(135deg,#f2a91d 50%,#85857e 50%)!important;color:#171711!important;text-shadow:0 1px 1px rgba(255,255,255,.45)}
 
 /* Uniform, centered on-screen keyboard: keys no longer stretch by row length. */
 .keyboard{width:100%;max-width:420px;justify-items:center}
 .keyboardRow{width:100%;justify-content:center}
 .key{flex:0 0 auto;width:clamp(20px,6.7vw,36px);height:38px;box-sizing:border-box}
 .wideKey{flex:0 0 auto;width:90px;height:38px;box-sizing:border-box}
+
+/* Alphabet reference above the guessing board. Scroll horizontally on narrow screens. */
+.alphabetReference{width:100%;max-width:100%;margin-bottom:22px;text-align:center;min-width:0}
+.alphabetLabel{display:block;margin-bottom:9px;font:700 .64rem var(--mono);letter-spacing:.12em;color:var(--muted)}
+.alphabetScroll{width:100%;overflow-x:auto;overscroll-behavior-x:contain;padding:0 0 9px;scrollbar-width:thin}
+.alphabetScroll:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.alphabetGrid{display:grid;grid-template-columns:repeat(26,26px);gap:3px;width:max-content;margin:0 auto}
+.alphabetLetter{display:grid;place-items:center;width:26px;height:32px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:700 .76rem var(--mono)}
+.alphabetHint{display:block;margin-top:5px;color:var(--muted);font-size:.72rem;line-height:1.4}

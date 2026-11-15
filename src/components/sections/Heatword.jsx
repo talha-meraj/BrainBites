@@ -4,6 +4,7 @@ import styles from './Heatword.module.css';
 
 const WORDS = ['BRAIN', 'PLANT', 'CLOUD', 'STONE', 'LIGHT'];
 const KEY_ROWS = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const MAX_GUESSES = 3;
 const alphabetDistance = (a, b) => Math.abs(a.charCodeAt(0) - b.charCodeAt(0));
 
@@ -20,7 +21,7 @@ export function gradeGuess(guess, answer) {
     if (remaining[guess[i]] > 0) {
       const distance = alphabetDistance(guess[i], answer[i]);
       const temperature = distance === 1 ? 'hot' : distance <= 5 ? 'warm' : 'cold';
-      result[i] = `present-${temperature}`;
+      result[i] = temperature === 'cold' ? 'present' : `present-${temperature}`;
       remaining[guess[i]]--;
     } else {
       const distance = alphabetDistance(guess[i], answer[i]);
@@ -63,9 +64,10 @@ export default function Heatword({ setScreen }) {
     return () => window.removeEventListener('keydown', handler);
   });
   const keyboardColors = {};
-  const priority = { cold: 0, warm: 1, hot: 2, 'present-cold': 3, 'present-warm': 4, 'present-hot': 5, exact: 6 };
+  const priority = { cold: 0, present: 1, exact: 2 };
   guesses.forEach(({ word, colors }) => [...word].forEach((letter, index) => {
-    const color = colors[index];
+    const tileColor = colors[index];
+    const color = tileColor === 'exact' ? 'exact' : tileColor.startsWith('present') ? 'present' : 'cold';
     if (!keyboardColors[letter] || priority[color] > priority[keyboardColors[letter]]) keyboardColors[letter] = color;
   }));
   const rows = [...guesses.map((entry) => [...entry.word].map((letter, i) => ({ letter, color: entry.colors[i] })))];
@@ -79,6 +81,15 @@ export default function Heatword({ setScreen }) {
     </header>
     <div className={styles.gameLayout}>
       <section className={styles.boardPanel} aria-label="Heatword game">
+        <div className={styles.alphabetReference} aria-label="Alphabet reference, A through Z">
+          <span className={styles.alphabetLabel}>ALPHABET / LETTER NEIGHBORS</span>
+          <div className={styles.alphabetScroll} tabIndex={0} aria-label="Scroll horizontally to see all alphabet letters">
+            <div className={styles.alphabetGrid}>
+              {[...ALPHABET].map((letter) => <span className={styles.alphabetLetter} key={letter}>{letter}</span>)}
+            </div>
+          </div>
+          <small className={styles.alphabetHint}>Adjacent letters are hot · Up to five steps away is warm</small>
+        </div>
         <div className={styles.board} role="grid" aria-label="Three five-letter guesses">
           {rows.map((row, rowIndex) => <div className={styles.boardRow} role="row" key={rowIndex}>
             {row.map(({ letter, color }, colIndex) => <div role="gridcell" key={colIndex} aria-label={`Row ${rowIndex + 1}, letter ${colIndex + 1}: ${letter || 'empty'}${color !== 'empty' ? `, ${color}` : ''}`} className={`${styles.tile} ${styles[color]}`}>{letter}</div>)}
@@ -93,17 +104,17 @@ export default function Heatword({ setScreen }) {
         </div>
         <div className={styles.actions}>{finished ? <button className={styles.primaryButton} onClick={() => restart(true)}>Next puzzle →</button> : <button className={styles.primaryButton} onClick={submit}>Submit guess →</button>}<button className={styles.textButton} onClick={() => restart(false)}><RotateCcw size={15}/> Restart</button></div>
       </section>
-      <aside className={styles.rulesPanel}><span className={styles.eyebrow}>HOW TO READ THE HEAT</span><h2>Every letter gives a clue</h2><p>Green means an exact match. A diagonal yellow tile means the letter is elsewhere in the word; its other half shows the alphabetical temperature relative to the answer letter at this position. Solid red, purple, or gray tiles show temperature when the letter isn't matched elsewhere.</p>
+      <aside className={styles.rulesPanel}><span className={styles.eyebrow}>HOW TO READ THE HEAT</span><h2>Every letter gives a clue</h2><p>Green means the letter is in the correct position. Red and purple indicate how close your guess is alphabetically to the answer letter at that position. Yellow means the letter appears elsewhere in the word. If a letter is both elsewhere and hot or warm, its tile shows both colors diagonally.</p>
         <div className={styles.legend}>{[
-          ['exact', 'A', 'EXACT', 'Right letter, right position'],
-          ['present-hot', 'A', 'PRESENT + HOT', 'Elsewhere in the word; one alphabet step from this position'],
-          ['present-warm', 'A', 'PRESENT + WARM', 'Elsewhere in the word; two to five steps from this position'],
-          ['present-cold', 'A', 'PRESENT + COLD', 'Elsewhere in the word; more than five steps from this position'],
+          ['exact', 'A', 'PRESENT', 'Right letter, right position'],
           ['hot', 'B', 'HOT', 'One alphabet step away'],
           ['warm', 'F', 'WARM', 'Two to five alphabet steps away'],
-          ['cold', 'Z', 'COLD', 'More than five steps away']
+          ['present', 'A', 'ELSEWHERE', 'Letter appears elsewhere in the word'],
+          ['cold', 'Z', 'COLD', 'More than five alphabet steps away'],
+          ['present-hot', 'A', 'ELSEWHERE + HOT', 'Elsewhere in the word; one alphabet step from this position'],
+          ['present-warm', 'A', 'ELSEWHERE + WARM', 'Elsewhere in the word; two to five steps from this position']
         ].map(([color, letter, label, detail]) => <div className={styles.legendItem} key={color}><span className={`${styles.legendTile} ${styles[color]}`}>{letter}</span><div><strong>{label}</strong><small>{detail}</small></div></div>)}</div>
-        <p className={styles.tip}>Example: If the answer letter at this position is A, B is hot and F is warm. The diagonal's yellow half independently indicates that the guessed letter also appears elsewhere in the word.</p>
+        <p className={styles.tip}>Example: If the answer letter at this position is A, B is hot and F is warm. Yellow alone means the letter is elsewhere but not hot or warm at this position.</p>
         <p className={styles.disclaimer}>Frontend demo: the answer rotates through five example words. Guesses don't require a dictionary lookup.</p>
       </aside>
     </div>

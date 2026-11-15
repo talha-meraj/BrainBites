@@ -82,7 +82,7 @@ Heatword uses five-letter answers and allows **three guesses** per round. Each t
 | **Red (hot)** | Guessed letter is one alphabet step from the answer letter at this position. |
 | **Purple (warm)** | Guessed letter is two to five alphabet steps away at this position. |
 | **Gray (cold)** | Guessed letter is farther away at this position. |
-| **Diagonal yellow + red/purple/gray** | Combines the **letter-present-elsewhere** clue with the **temperature** clue for this position. |
+| **Diagonal yellow + red/purple** | Combines the **letter-present** clue with the **temperature** clue for this position. |
 
 The on-screen keyboard uses uniformly sized, centered letter keys and reflects the game's feedback. Heatword currently rotates through a small built-in word list; it does not use a live daily-puzzle service or dictionary validation.
 
