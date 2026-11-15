@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import styles from './Heatword.module.css';
 
@@ -36,6 +36,59 @@ export default function Heatword({ setScreen }) {
   const [guess, setGuess] = useState('');
   const [guesses, setGuesses] = useState([]);
   const [message, setMessage] = useState('');
+  const [hoverLetter, setHoverLetter] = useState(null);
+  const [pinnedLetter, setPinnedLetter] = useState(null);
+  const [scrollbarVisible, setScrollbarVisible] = useState(false);
+  const [scrollMetrics, setScrollMetrics] = useState({ left: 0, width: 1, content: 1 });
+  const alphabetScrollRef = useRef(null);
+  const hideScrollbarTimer = useRef(null);
+  const touchStart = useRef(null);
+  const draggingScrollbar = useRef(false);
+  const activeLetter = hoverLetter ?? pinnedLetter;
+  const revealScrollbar = () => {
+    setScrollbarVisible(true);
+    window.clearTimeout(hideScrollbarTimer.current);
+    if (!draggingScrollbar.current) hideScrollbarTimer.current = window.setTimeout(() => setScrollbarVisible(false), 2600);
+  };
+  const updateScrollMetrics = () => {
+    const node = alphabetScrollRef.current;
+    if (node) setScrollMetrics({ left: node.scrollLeft, width: node.clientWidth, content: node.scrollWidth });
+  };
+  useEffect(() => {
+    updateScrollMetrics();
+    window.addEventListener('resize', updateScrollMetrics);
+    return () => { window.removeEventListener('resize', updateScrollMetrics); window.clearTimeout(hideScrollbarTimer.current); };
+  }, []);
+  const thumbFraction = Math.min(1, scrollMetrics.width / scrollMetrics.content);
+  const thumbOffset = scrollMetrics.content > scrollMetrics.width ? (scrollMetrics.left / (scrollMetrics.content - scrollMetrics.width)) * (1 - thumbFraction) : 0;
+  const moveScrollbarTo = (event) => {
+    const scroll = alphabetScrollRef.current;
+    const track = event.currentTarget;
+    if (!scroll || scroll.scrollWidth <= scroll.clientWidth) return;
+    const rect = track.getBoundingClientRect();
+    const fraction = Math.min(1, Math.max(0, (event.clientX - rect.left - rect.width * thumbFraction / 2) / (rect.width * (1 - thumbFraction))));
+    scroll.scrollLeft = fraction * (scroll.scrollWidth - scroll.clientWidth);
+    updateScrollMetrics();
+  };
+  const startScrollbarDrag = (event) => {
+    if (scrollMetrics.content <= scrollMetrics.width) return;
+    draggingScrollbar.current = true;
+    window.clearTimeout(hideScrollbarTimer.current);
+    setScrollbarVisible(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+    moveScrollbarTo(event);
+  };
+  const stopScrollbarDrag = (event) => {
+    if (!draggingScrollbar.current) return;
+    draggingScrollbar.current = false;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    revealScrollbar();
+  };
+  const alphabetColor = (letter) => {
+    if (!activeLetter) return '';
+    const distance = alphabetDistance(letter, activeLetter);
+    return distance === 0 ? styles.alphabetSelected : distance === 1 ? styles.alphabetHot : distance <= 5 ? styles.alphabetWarm : '';
+  };
   const answer = WORDS[round % WORDS.length];
   const won = guesses.some((entry) => entry.word === answer);
   const finished = won || guesses.length >= MAX_GUESSES;
@@ -81,14 +134,19 @@ export default function Heatword({ setScreen }) {
     </header>
     <div className={styles.gameLayout}>
       <section className={styles.boardPanel} aria-label="Heatword game">
-        <div className={styles.alphabetReference} aria-label="Alphabet reference, A through Z">
+        <div className={styles.alphabetReference} aria-label="Interactive alphabet reference, A through Z">
           <span className={styles.alphabetLabel}>ALPHABET / LETTER NEIGHBORS</span>
-          <div className={styles.alphabetScroll} tabIndex={0} aria-label="Scroll horizontally to see all alphabet letters">
-            <div className={styles.alphabetGrid}>
-              {[...ALPHABET].map((letter) => <span className={styles.alphabetLetter} key={letter}>{letter}</span>)}
+          <div className={styles.alphabetArea} onPointerMove={(event) => { if (event.pointerType === 'mouse') revealScrollbar(); }} onPointerLeave={() => setHoverLetter(null)}>
+            <div ref={alphabetScrollRef} className={styles.alphabetScroll} tabIndex={0} aria-label="Scroll horizontally to see all alphabet letters" onScroll={() => { updateScrollMetrics(); revealScrollbar(); }} onFocus={revealScrollbar} onTouchStart={revealScrollbar}>
+              <div className={styles.alphabetGrid}>
+                {[...ALPHABET].map((letter) => <button type="button" className={`${styles.alphabetLetter} ${alphabetColor(letter)}`} key={letter} aria-pressed={pinnedLetter === letter} aria-label={`${letter}: preview neighboring letters`} onPointerEnter={(event) => { if (event.pointerType === 'mouse') { setHoverLetter(letter); revealScrollbar(); } }} onPointerLeave={(event) => { if (event.pointerType === 'mouse') setHoverLetter(null); }} onTouchStart={(event) => { touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }} onTouchMove={(event) => { if (touchStart.current && (Math.abs(event.touches[0].clientX - touchStart.current.x) > 8 || Math.abs(event.touches[0].clientY - touchStart.current.y) > 8)) touchStart.current.moved = true; }} onClick={(event) => { if (touchStart.current?.moved) { touchStart.current = null; return; } touchStart.current = null; setPinnedLetter((previous) => previous === letter ? null : letter); if (event.detail === 0) revealScrollbar(); }}>{letter}</button>)}
+              </div>
+            </div>
+            <div className={`${styles.alphabetTrack} ${scrollbarVisible ? styles.alphabetTrackVisible : ''}`} role="scrollbar" aria-label="Alphabet horizontal scrollbar" aria-orientation="horizontal" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(scrollMetrics.content > scrollMetrics.width ? scrollMetrics.left / (scrollMetrics.content - scrollMetrics.width) * 100 : 0)} tabIndex={0} onFocus={revealScrollbar} onKeyDown={(event) => { const node = alphabetScrollRef.current; if (!node) return; if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') { event.preventDefault(); node.scrollLeft += event.key === 'ArrowRight' ? 40 : -40; revealScrollbar(); } }} onPointerDown={startScrollbarDrag} onPointerMove={(event) => { if (draggingScrollbar.current) moveScrollbarTo(event); }} onPointerUp={stopScrollbarDrag} onPointerCancel={stopScrollbarDrag}>
+              <div className={styles.alphabetThumb} style={{ width: `${thumbFraction * 100}%`, left: `${thumbOffset * 100}%` }} />
             </div>
           </div>
-          <small className={styles.alphabetHint}>Adjacent letters are hot · Up to five steps away is warm</small>
+          <small className={styles.alphabetHint}>Hover or tap a letter: green = selected · red = ±1 · purple = ±2–5. Tap again to clear.</small>
         </div>
         <div className={styles.board} role="grid" aria-label="Three five-letter guesses">
           {rows.map((row, rowIndex) => <div className={styles.boardRow} role="row" key={rowIndex}>

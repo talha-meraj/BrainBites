@@ -27,17 +27,19 @@
 .alphabetLetter{display:grid;place-items:center;width:26px;height:32px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:700 .76rem var(--mono)}
 .alphabetHint{display:block;margin-top:5px;color:var(--muted);font-size:.72rem;line-height:1.4}
 
-/* Responsive enhancements */
-
-@media (max-width: 600px) {
-    .standardPage { width: calc(100% - 24px); margin-block: 24px 40px; }
-    .boardPanel { padding: 18px 8px; }
-    .rulesPanel { padding: 20px 16px; }
-    .board, .boardRow { gap: 4px; }
-    .tile { width: clamp(36px, 16vw, 54px); height: clamp(40px, 16vw, 54px); font-size: clamp(1.1rem, 6vw, 1.55rem); }
-    .keyboard { width: 100%; max-width: 100%; gap: 6px; }
-    .keyboardRow { gap: clamp(2px, .9vw, 4px); }
-    .key { width: min(8.1vw, 36px); min-width: 0; height: 44px; font-size: clamp(.56rem, 2.6vw, .75rem); padding-inline: 0; }
-    .wideKey { width: min(22vw, 90px); min-width: 0; height: 44px; font-size: clamp(.58rem, 2.5vw, .75rem); padding-inline: 2px; }
-    .alphabetReference { margin-bottom: 16px; }
-}
+/* Interactive alphabet: keep native touch scrolling, with a fading accent indicator. */
+.alphabetArea{position:relative;width:100%;min-width:0}
+.alphabetScroll{padding-bottom:13px;scrollbar-width:none;-ms-overflow-style:none}
+.alphabetScroll::-webkit-scrollbar{display:none}
+.alphabetLetter{appearance:none;border-radius:2px;cursor:pointer;flex-shrink:0;transition:background-color .28s ease,color .28s ease,border-color .28s ease,box-shadow .28s ease;touch-action:pan-x;user-select:none;-webkit-tap-highlight-color:transparent}
+.alphabetLetter:hover{border-color:var(--ink)}
+.alphabetLetter:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.alphabetSelected{background:#4f8158!important;color:#fff!important;border-color:#4f8158!important}
+.alphabetHot{background:#e95d3f!important;color:#fff!important;border-color:#e95d3f!important}
+.alphabetWarm{background:#7652a8!important;color:#fff!important;border-color:#7652a8!important}
+.alphabetTrack{position:absolute;bottom:0;left:0;right:0;height:12px;border-radius:99px;background:color-mix(in srgb,var(--ink) 13%,transparent);background-clip:content-box;padding-block:3px;opacity:0;pointer-events:auto;touch-action:none;cursor:pointer;transition:opacity .45s ease}
+.alphabetTrackVisible{opacity:1}
+.alphabetTrack:hover,.alphabetTrack:focus-visible{opacity:1}
+.alphabetTrack:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.alphabetThumb{position:absolute;top:3px;height:6px;background:var(--accent,#ffe45c);border-radius:99px;transition:left .08s linear}
+@media(prefers-reduced-motion:reduce){.alphabetLetter,.alphabetTrack,.alphabetThumb{transition:none}}
