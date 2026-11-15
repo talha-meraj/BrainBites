@@ -229,3 +229,12 @@
         padding: 40px 24px;
     }
 }
+/* Responsive enhancements */
+
+@media (max-width: 600px) {
+    .authLayout { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+    .authAside { padding: 24px 18px; }
+    .asideTitle { font-size: clamp(1.8rem, 8vw, 2.7rem); }
+    .asideSketch { display: none; }
+    .authCard { width: calc(100% - 36px); padding: 28px 0; min-width: 0; }
+}

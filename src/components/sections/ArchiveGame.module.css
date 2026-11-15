@@ -31,3 +31,13 @@
 button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 @media (max-width: 640px) { .standardPage { width: calc(100% - 32px); } .choiceGrid { grid-template-columns: 1fr; } .memoryGrid { gap: 8px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+/* Responsive enhancements */
+
+@media (max-width: 600px) {
+    .standardPage { width: calc(100% - 28px); margin-block: 24px 40px; }
+    .gamePanel { padding: 18px 12px; min-width: 0; }
+    .memoryGrid { gap: 6px; }
+    .tile { width: min(14vw, 58px); height: min(16vw, 65px); font-size: clamp(1rem, 4vw, 1.5rem); }
+    .choiceGrid { grid-template-columns: minmax(0, 1fr); }
+}

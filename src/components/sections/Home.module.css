@@ -544,3 +544,19 @@
 }
 /* Keep the puzzle library heading visible beneath the sticky navigation. */
 :global(#puzzle-library) { scroll-margin-top: 165px; }
+
+/* Responsive enhancements */
+
+@media (max-width: 900px) {
+    .dailyFeature, .contentSection, .pastArchives { width: calc(100% - 40px); }
+    .cardGrid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+}
+@media (max-width: 600px) {
+    .dailyFeature, .contentSection, .pastArchives { width: calc(100% - 28px); }
+    .dailyChallenge { padding: 20px 16px; }
+    .cardGrid { grid-template-columns: minmax(0, 1fr); }
+    .heroHeatPreview { max-width: 100%; }
+}
+:global(#puzzle-library) { scroll-margin-top: 82px; }
+
+@media (max-width: 600px) { .archiveTiles { grid-template-columns: minmax(0, 1fr); } .sectionTitle { align-items: flex-start; flex-direction: column; gap: 12px; } }

@@ -177,3 +177,17 @@ button {
     padding-left: clamp(16px, 4vw, 32px);
     padding-right: clamp(16px, 4vw, 32px);
 }
+/* Fluid layout safeguards for phones, tablets, and desktop. */
+html, body, #root { min-width: 0; width: 100%; }
+img, video, svg { max-width: 100%; }
+button, input, textarea, select { font: inherit; }
+@media (max-width: 900px) {
+    html { scroll-padding-top: 76px; }
+}
+@media (max-width: 600px) {
+    h1, h2, h3, p { overflow-wrap: break-word; }
+    input, textarea, select { max-width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}

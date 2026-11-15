@@ -77,6 +77,29 @@ export default function Navbar({
         return () => { window.removeEventListener('scroll', updateSection); window.removeEventListener('resize', updateSection); };
     }, [currentScreen]);
 
+    // Close the drawer when navigating, and support Escape and scroll locking.
+    useEffect(() => {
+        if (!menuOpen) return;
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') setMenuOpen(false);
+        };
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', onKeyDown);
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            document.removeEventListener('keydown', onKeyDown);
+        };
+    }, [menuOpen]);
+
+    useEffect(() => {
+        const onResize = () => {
+            if (window.innerWidth > 900) setMenuOpen(false);
+        };
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
+
     // Retrieve active role links
     const workspaceLinks = WORKSPACE_NAV_LINKS[role] || WORKSPACE_NAV_LINKS.Guest;
 
@@ -123,6 +146,14 @@ export default function Navbar({
 
     return (
         <header className={styles.siteHeader}>
+            {menuOpen && (
+                <button
+                    type="button"
+                    className={styles.drawerBackdrop}
+                    aria-label="Close navigation menu"
+                    onClick={() => setMenuOpen(false)}
+                />
+            )}
             {/* Tier 1: Brand Row */}
             <div className={styles.brandRow}>
                 {/* Brand Logo & Title */}
@@ -135,13 +166,21 @@ export default function Navbar({
                     <BrandMark size="large" />
                     <b>BrainBites</b>
                 </button>
-
+            
                 {/* Mobile Navigation Drawer with Role Switcher */}
                 <nav
                     id="main-navigation"
                     aria-label="Main navigation"
                     className={`${styles.mainNav} ${menuOpen ? styles.navOpen : ''}`}
+                    aria-hidden={!menuOpen}
+                    inert={!menuOpen ? true : undefined}
                 >
+                    <div className={styles.drawerHeading}>
+                        <strong>Navigation</strong>
+                        <button type="button" aria-label="Close navigation menu" onClick={() => setMenuOpen(false)}>
+                            <X size={22} />
+                        </button>
+                    </div>
                     {/* Quick role Switcher for Evaluation */}
                     <div className={styles.navRoleSwitch}>
                         <span className={styles.roleSwitchLabel}>VIEW AS</span>

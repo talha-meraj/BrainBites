@@ -133,3 +133,9 @@
         transition: none;
     }
 }
+
+/* Responsive enhancements */
+
+@media (max-width: 600px) {
+    .standardPage { width: calc(100% - 28px); }
+}

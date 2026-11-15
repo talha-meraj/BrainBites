@@ -413,3 +413,218 @@
         display: none;
     }
 }
+/* Responsive slide-out drawer. Desktop retains the original two-tier navigation. */
+.menuButton { display: none; }
+.drawerBackdrop, .drawerHeading { display: none; }
+@media (max-width: 900px) {
+    .siteHeader { z-index: 100; }
+    .brandRow { min-height: 68px; padding: 12px 20px; gap: 12px; }
+    .logo { gap: 10px; }
+    .logo b { font-size: 1rem; }
+    .topActions { gap: 12px; }
+    .themeToggle { min-width: 44px; justify-content: center; }
+    .themeToggle i { flex-shrink: 0; }
+    .menuButton { display: grid; width: 44px; min-height: 44px; }
+    .workspaceNav { display: none; }
+    .drawerBackdrop {
+        display: block; position: fixed; inset: 0; z-index: 98;
+        width: 100%; height: 100dvh; border: 0; padding: 0;
+        background: rgba(0,0,0,.55); cursor: pointer;
+    }
+    .mainNav {
+        display: flex; flex-direction: column; position: fixed;
+        top: 0; right: 0; bottom: 0; left: auto;
+        width: min(380px, 88vw); max-height: 100dvh; height: 100dvh;
+        padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+        overflow-y: auto; overscroll-behavior: contain;
+        background: var(--paper); border: 0; border-left: 2px solid var(--ink);
+        box-shadow: -5px 0 0 var(--accent); z-index: 101;
+        transform: translateX(110%); visibility: hidden;
+        transition: transform .24s ease, visibility .24s;
+    }
+    .navOpen { transform: translateX(0); visibility: visible; }
+    .drawerHeading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 12px; font-family: var(--display); text-transform: uppercase; }
+    .drawerHeading button { display: grid; place-items: center; width: 44px; height: 44px; background: var(--surface); color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
+    .mobileNavLink { width: 100%; }
+    .authButton { min-height: 44px; padding: 9px 12px; font-size: .7rem; letter-spacing: .05em; }
+    .userChip { min-height: 44px; padding: 4px 8px; font-size: .72rem; }
+}
+@media (max-width: 480px) {
+    .brandRow { padding-inline: 12px; }
+    .topActions { gap: 8px; }
+    .logo b { font-size: .9rem; }
+    .authButton { display: none; }
+    .userChip { max-width: 110px; overflow: hidden; }
+    .themeToggle i { width: 48px; }
+    .themeToggle i.toggleOn::after { transform: translateX(16px); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .mainNav { transition: none; }
+}
+
+/* Keep the navigation drawer available at every viewport width. */
+.menuButton {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    min-height: 44px;
+}
+
+.drawerBackdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 98;
+    width: 100%;
+    height: 100dvh;
+    border: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, .55);
+    cursor: pointer;
+}
+
+.mainNav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: min(380px, 88vw);
+    height: 100dvh;
+    max-height: 100dvh;
+    padding: max(20px, env(safe-area-inset-top)) 20px max(20px, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--paper);
+    border: 0;
+    border-left: 2px solid var(--ink);
+    box-shadow: -5px 0 0 var(--accent);
+    z-index: 101;
+    transform: translateX(110%);
+    visibility: hidden;
+    transition: transform .24s ease, visibility .24s;
+}
+
+.navOpen {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.drawerHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    font-family: var(--display);
+    text-transform: uppercase;
+}
+
+.drawerHeading button {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    cursor: pointer;
+}
+
+.mobileNavLink { width: 100%; }
+
+
+/* Shared drawer controls: styled identically at mobile and desktop widths. */
+.mobileNavLink {
+        min-height: 48px;
+        padding: 12px;
+        text-align: left;
+        border: 0;
+        background: none;
+        font-size: var(--type-ui, 0.875rem);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        color: var(--ink);
+        font-family: var(--display, "Archivo Black", sans-serif);
+        font-weight: 700;
+    }
+
+.mobileNavActive {
+        background: var(--accent);
+        color: var(--accent-ink);
+    }
+
+.navRoleSwitch {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        margin: 0 0 12px;
+        padding: 0 0 16px;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+.roleSwitchLabel {
+        font-size: var(--type-caption, 0.75rem);
+        font-family: var(--mono, "Space Mono", monospace);
+        color: var(--muted);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+.previewRoleOptions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+.previewRoleOptions button {
+        min-height: 44px;
+        padding: 10px 6px;
+        border: 1px solid var(--ink);
+        background: var(--surface);
+        color: var(--ink);
+        font-size: var(--type-caption, 0.75rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        font-family: var(--display, "Archivo Black", sans-serif);
+    }
+
+.previewRoleOptions button:hover,
+    .previewRoleOptions button.roleBtnActive {
+        background: var(--accent);
+        color: var(--accent-ink);
+    }
+
+.previewRoleHint {
+        color: var(--muted);
+        font-size: var(--type-caption, 0.75rem);
+        line-height: 1.5;
+    }
+
+.mobileAccountActions {
+        display: flex;
+        flex-direction: column;
+        margin-top: 12px;
+        border-top: 1px solid var(--line);
+    }
+
+.mobileAccountActions button {
+        min-height: 48px;
+        padding: 12px;
+        text-align: left;
+        border: 0;
+        background: none;
+        font-size: var(--type-ui, 0.875rem);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        color: var(--ink);
+        font-family: var(--display, "Archivo Black", sans-serif);
+        font-weight: 700;
+    }

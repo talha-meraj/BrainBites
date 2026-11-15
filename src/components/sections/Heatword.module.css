@@ -26,3 +26,18 @@
 .alphabetGrid{display:grid;grid-template-columns:repeat(26,26px);gap:3px;width:max-content;margin:0 auto}
 .alphabetLetter{display:grid;place-items:center;width:26px;height:32px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:700 .76rem var(--mono)}
 .alphabetHint{display:block;margin-top:5px;color:var(--muted);font-size:.72rem;line-height:1.4}
+
+/* Responsive enhancements */
+
+@media (max-width: 600px) {
+    .standardPage { width: calc(100% - 24px); margin-block: 24px 40px; }
+    .boardPanel { padding: 18px 8px; }
+    .rulesPanel { padding: 20px 16px; }
+    .board, .boardRow { gap: 4px; }
+    .tile { width: clamp(36px, 16vw, 54px); height: clamp(40px, 16vw, 54px); font-size: clamp(1.1rem, 6vw, 1.55rem); }
+    .keyboard { width: 100%; max-width: 100%; gap: 6px; }
+    .keyboardRow { gap: clamp(2px, .9vw, 4px); }
+    .key { width: min(8.1vw, 36px); min-width: 0; height: 44px; font-size: clamp(.56rem, 2.6vw, .75rem); padding-inline: 0; }
+    .wideKey { width: min(22vw, 90px); min-width: 0; height: 44px; font-size: clamp(.58rem, 2.5vw, .75rem); padding-inline: 2px; }
+    .alphabetReference { margin-bottom: 16px; }
+}

@@ -130,3 +130,11 @@
         flex-direction: column;
     }
 }
+/* Responsive enhancements */
+
+@media (max-width: 600px) {
+    .authLayout, .formGrid { grid-template-columns: minmax(0, 1fr); }
+    .authCard { max-width: 100%; }
+}
+
+@media (max-width: 600px) { .centerPage { padding: 24px 14px; min-height: 0; } .registerCard { padding: 24px 16px; min-width: 0; } .twoCol { grid-template-columns: minmax(0, 1fr); } .registerCard h1 { font-size: clamp(1.6rem, 7vw, 2.2rem); } }

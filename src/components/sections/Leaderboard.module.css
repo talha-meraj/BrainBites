@@ -41,3 +41,12 @@
 @media (max-width: 900px) { .podiumGrid { grid-template-columns: 1fr; gap: 16px; } .podiumCard { padding: 24px; } .podiumIcon { margin-top: 14px; } }
 @media (max-width: 640px) { .standardPage { width: calc(100% - 32px); } .rankingPanel { padding: 20px 12px; } .rankingsTable th, .rankingsTable td { padding: 12px 10px; } .rankingHeader { align-items: flex-start; flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) { .categoryButton, .actionButton { transition: none; } }
+
+/* Responsive enhancements */
+
+@media (max-width: 600px) {
+    .standardPage { width: calc(100% - 28px); margin-block: 24px 40px; }
+    .podiumGrid { grid-template-columns: 1fr; }
+    .tableScroll { -webkit-overflow-scrolling: touch; }
+    .rankingsTable { min-width: 550px; }
+}
